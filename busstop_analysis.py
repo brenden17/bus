@@ -38,6 +38,24 @@ def generate_template_html(data, outfilename='busmap.html'):
     outfile = open(outfilename, 'w')
     outfile.write(map_html)
 
+# 일부 버스 정보 샘플링
+import pandas as pd
+
+bus_df = pd.read_csv('bus.tsv', sep='\t')
+
+mbus_df = bus_df[bus_df['stationid']!='0']
+mbus_df = mbus_df[mbus_df['stationid']!='미정차']
+mbus_df = mbus_df[mbus_df['stationid']!='35331']
+# mbus_df.shape
+sampling_mbus = mbus_df.loc[np.random.permutation(mbus_df.index)[:200]]
+
+# 일부 정거장 구하기
+busstops = generate_busstops(sampling_mbus)
+    
+data = {'busstops': busstops, 'busroutes': ''}
+generate_template_html(data, 'all_busstop')
+
+
 # 버스 정보 읽기와 필터링
 import pandas as pd
 
