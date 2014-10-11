@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Bus</title>
+    <title>Busstop</title>
     <style>
       html, body, #map-canvas {
         height: 100%;
@@ -22,23 +22,15 @@
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
-    // If you're adding a number of markers, you may want to
-    // drop them on the map consecutively rather than all at once.
-    // This example shows how to use setTimeout() to space
-    // your markers' animation.
-
     var seoul = new google.maps.LatLng(37.54694, 126.978152);
 
-    var busstops = [new google.maps.LatLng(37.5288590664, 126.894572242),
+    var busstops = [new google.maps.LatLng(37.4497663974, 126.901205008),
+new google.maps.LatLng(37.5284983913, 126.879308288),
 new google.maps.LatLng(37.5113151421, 127.080186815),
-new google.maps.LatLng(37.4814673334, 126.896242837),
 new google.maps.LatLng(37.6147832661, 127.073024007),
-new google.maps.LatLng(37.5850840078, 126.890528908),
-new google.maps.LatLng(37.5581931266, 126.928819137),
-new google.maps.LatLng(37.4695028578, 126.94337835),
-new google.maps.LatLng(37.446843131, 126.901941913),
-new google.maps.LatLng(37.5652345047, 126.801261582),
-new google.maps.LatLng(37.5184126753, 126.860660077)];
+new google.maps.LatLng(37.5753055056, 126.904452628),
+new google.maps.LatLng(37.4833656227, 126.896100877),
+new google.maps.LatLng(37.4695028578, 126.94337835)];
     
     var markers = [];
     var iterator = 0;
