@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bus</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+    // If you're adding a number of markers, you may want to
+    // drop them on the map consecutively rather than all at once.
+    // This example shows how to use setTimeout() to space
+    // your markers' animation.
+
+    var seoul = new google.maps.LatLng(37.54694, 126.978152);
+
+    var busstops = [new google.maps.LatLng(37.6143314819, 127.065796581),
+new google.maps.LatLng(37.6158054934, 127.069232427),
+new google.maps.LatLng(37.615274256, 127.066973215),
+new google.maps.LatLng(37.6150028692, 127.067255027),
+new google.maps.LatLng(37.6149185355, 127.064989445),
+new google.maps.LatLng(37.6133669608, 127.103897347),
+new google.maps.LatLng(37.5097831979, 127.06715598),
+new google.maps.LatLng(37.5104187252, 127.072815802),
+new google.maps.LatLng(37.5116128425, 127.079555459),
+new google.maps.LatLng(37.5114066648, 127.084495133),
+new google.maps.LatLng(37.5115116112, 127.091202066),
+new google.maps.LatLng(37.51241161, 127.09819625),
+new google.maps.LatLng(37.5128993133, 127.09794576),
+new google.maps.LatLng(37.5117722886, 127.08728054),
+new google.maps.LatLng(37.5118706155, 127.083390479),
+new google.maps.LatLng(37.512009235, 127.079691624),
+new google.maps.LatLng(37.5111175337, 127.072073294),
+new google.maps.LatLng(37.5104082978, 127.062718953),
+new google.maps.LatLng(37.5098749124, 127.065907257),
+new google.maps.LatLng(37.4337174251, 126.903310133),
+new google.maps.LatLng(37.4402569123, 126.903454284),
+new google.maps.LatLng(37.4478432162, 126.903272741),
+new google.maps.LatLng(37.4525166369, 126.901411902),
+new google.maps.LatLng(37.4592088301, 126.898872152),
+new google.maps.LatLng(37.4641602097, 126.897582395),
+new google.maps.LatLng(37.4646052495, 126.897458565),
+new google.maps.LatLng(37.4576736796, 126.899268721),
+new google.maps.LatLng(37.4529209731, 126.901098277),
+new google.maps.LatLng(37.4489078235, 126.902657647),
+new google.maps.LatLng(37.4407425212, 126.903344038),
+new google.maps.LatLng(37.4346432921, 126.902729236),
+new google.maps.LatLng(37.4842732957, 126.886196288),
+new google.maps.LatLng(37.4824285977, 126.886992872),
+new google.maps.LatLng(37.4860984011, 126.885645079),
+new google.maps.LatLng(37.4877971894, 126.884930066),
+new google.maps.LatLng(37.4902484188, 126.88423987),
+new google.maps.LatLng(37.4908711691, 126.907900242),
+new google.maps.LatLng(37.4870299236, 126.904694563),
+new google.maps.LatLng(37.4830994287, 126.901548129),
+new google.maps.LatLng(37.481361666, 126.911239664),
+new google.maps.LatLng(37.4839345974, 126.902447128),
+new google.maps.LatLng(37.4865054257, 126.90462625),
+new google.maps.LatLng(37.4902988664, 126.907769764),
+new google.maps.LatLng(37.4899022236, 126.88406512),
+new google.maps.LatLng(37.4881725465, 126.884516735),
+new google.maps.LatLng(37.4667414611, 126.947952286),
+new google.maps.LatLng(37.4702091665, 126.944527659),
+new google.maps.LatLng(37.47086085, 126.941179544),
+new google.maps.LatLng(37.4704691214, 126.938145402),
+new google.maps.LatLng(37.470573816, 126.942027697),
+new google.maps.LatLng(37.4681627319, 126.946437515),
+new google.maps.LatLng(37.4691356565, 126.898083223),
+new google.maps.LatLng(37.475363705, 126.898666093),
+new google.maps.LatLng(37.4739811106, 126.898319728),
+new google.maps.LatLng(37.4700789875, 126.897934969),
+new google.maps.LatLng(37.5204160307, 126.902834078),
+new google.maps.LatLng(37.5213255961, 126.896877544),
+new google.maps.LatLng(37.5239401081, 126.865103789),
+new google.maps.LatLng(37.5249270305, 126.873443753),
+new google.maps.LatLng(37.51629759, 126.866427547),
+new google.maps.LatLng(37.5210022006, 126.896991122),
+new google.maps.LatLng(37.5200710672, 126.903025718),
+new google.maps.LatLng(37.5144211688, 126.900850882),
+new google.maps.LatLng(37.5111615727, 126.892258205),
+new google.maps.LatLng(37.5652345047, 126.801261582),
+new google.maps.LatLng(37.5084859726, 126.837665218),
+new google.maps.LatLng(37.5468404177, 126.88450098),
+new google.maps.LatLng(37.5439165302, 126.89034721),
+new google.maps.LatLng(37.5416485864, 126.894427842),
+new google.maps.LatLng(37.5477874937, 126.883608843),
+new google.maps.LatLng(37.589961128, 126.883446945),
+new google.maps.LatLng(37.5564010664, 126.923297922),
+new google.maps.LatLng(37.5626233467, 126.927955221),
+new google.maps.LatLng(37.5559833987, 126.934503767),
+new google.maps.LatLng(37.5577646946, 126.92951964),
+new google.maps.LatLng(37.585784938, 126.888479786),
+new google.maps.LatLng(37.5832230348, 126.893238018),
+new google.maps.LatLng(37.579005065, 126.900494704),
+new google.maps.LatLng(37.5830048393, 126.894092061),
+new google.maps.LatLng(37.5854440698, 126.889164207),
+new google.maps.LatLng(37.5891649798, 126.884786639)];
+    
+    var markers = [];
+    var iterator = 0;
+
+    var map;
+
+    function initialize() {
+        var mapOptions = {
+            zoom: 11,
+            center: seoul
+        };
+
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        
+    }
+
+    function drop() {
+      for (var i = 0; i < busstops.length; i++) {
+        setTimeout(function() {
+          addMarker();
+        }, i * 200);
+      }
+    }
+
+    function addMarker() {
+      markers.push(new google.maps.Marker({
+        position: busstops[iterator],
+        map: map,
+        draggable: false,
+        animation: google.maps.Animation.DROP
+      }));
+      iterator++;
+    }
+    
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+    </head>
+    <body>
+        <div id="panel" style="margin-left: -52px">
+        <button id="drop" onclick="drop()">Guess what?</button>
+        </div>
+        <div id="map-canvas"></div>
+    </body>
+</html>
+

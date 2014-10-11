@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Marker animations with <code>setTimeout()</code></title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+    // If you're adding a number of markers, you may want to
+    // drop them on the map consecutively rather than all at once.
+    // This example shows how to use setTimeout() to space
+    // your markers' animation.
+
+    var seoul = new google.maps.LatLng(37.54694, 126.978152);
+
+    var neighborhoods = [
+
+        new google.maps.LatLng(37.6158054934, 127.069232427),
+        new google.maps.LatLng(37.615274256, 127.066973215),
+        new google.maps.LatLng(37.6149185355, 127.064989445),
+        new google.maps.LatLng(37.4691356565, 126.898083223),
+        new google.maps.LatLng(37.5914332455, 126.883183066)
+
+    ];
+
+    var busCoordinates = [
+        new google.maps.LatLng(37.4934555292, 127.152233707),
+        new google.maps.LatLng(37.495710391, 127.149882517),
+        new google.maps.LatLng(37.4970139451, 127.148008845),
+        new google.maps.LatLng(37.4996759516, 127.144244447),
+        new google.maps.LatLng(37.502548108, 127.140215508),
+        new google.maps.LatLng(37.5027436792, 127.137891555),
+        new google.maps.LatLng(37.4999787589, 127.135851777),
+        new google.maps.LatLng(37.4991573819, 127.133100825),
+        new google.maps.LatLng(37.5032944565, 127.12643263),
+        new google.maps.LatLng(37.5059514451, 127.121625395),
+        new google.maps.LatLng(37.5059692868, 127.115520854),
+        new google.maps.LatLng(37.5038731127, 127.113883224),
+        new google.maps.LatLng(37.5025010936, 127.111619036),
+        new google.maps.LatLng(37.5068001738, 127.105826201),
+        new google.maps.LatLng(37.5128993133, 127.09794576),
+        new google.maps.LatLng(37.5109779513, 127.092627834),
+        new google.maps.LatLng(37.5090871563, 127.091839347),
+        new google.maps.LatLng(37.5070038465, 127.092945293),
+        new google.maps.LatLng(37.5046424092, 127.09699391),
+        new google.maps.LatLng(37.5027059543, 127.09475757),
+        new google.maps.LatLng(37.5039542558, 127.08979034),
+        new google.maps.LatLng(37.5052624454, 127.085207583),
+        new google.maps.LatLng(37.5063220545, 127.081498747),
+        new google.maps.LatLng(37.5098569453, 127.079036654),
+        new google.maps.LatLng(37.5104187252, 127.072815802),
+        new google.maps.LatLng(37.5101780907, 127.078506475),
+        new google.maps.LatLng(37.5063437767, 127.080040769),
+        new google.maps.LatLng(37.504819808, 127.085479672),
+        new google.maps.LatLng(37.5038161527, 127.088909069),
+        new google.maps.LatLng(37.5023772019, 127.094570532),
+        new google.maps.LatLng(37.5043258894, 127.097277401),
+        new google.maps.LatLng(37.5070078199, 127.094749434),
+        new google.maps.LatLng(37.5088084767, 127.092146678),
+        new google.maps.LatLng(37.511317434, 127.092923493),
+        new google.maps.LatLng(37.51241161, 127.09819625),
+        new google.maps.LatLng(37.507105259, 127.105252022),
+        new google.maps.LatLng(37.5036628588, 127.108453771),
+        new google.maps.LatLng(37.5025500755, 127.112229878),
+        new google.maps.LatLng(37.5036442616, 127.113853469),
+        new google.maps.LatLng(37.5059979239, 127.115723366),
+        new google.maps.LatLng(37.5060869823, 127.120382529),
+        new google.maps.LatLng(37.5026804523, 127.126762994),
+        new google.maps.LatLng(37.4994498741, 127.131819914),
+        new google.maps.LatLng(37.4997505359, 127.136063993),
+        new google.maps.LatLng(37.5026135468, 127.138211404),
+        new google.maps.LatLng(37.5023779948, 127.140051188),
+        new google.maps.LatLng(37.4997151526, 127.14387242),
+        new google.maps.LatLng(37.4969302915, 127.147889929),
+        new google.maps.LatLng(37.4956014138, 127.149838192),
+    ];
+
+    var busCoordinates1 = [
+        new google.maps.LatLng(37.6934555292, 127.152233707),
+        new google.maps.LatLng(37.695710391, 127.149882517),
+        new google.maps.LatLng(37.6970139451, 127.148008845),
+        new google.maps.LatLng(37.6996759516, 127.144244447),
+        new google.maps.LatLng(37.602548108, 127.140215508),
+        new google.maps.LatLng(37.6027436792, 127.137891555),
+        new google.maps.LatLng(37.6999787589, 127.135851777),
+        new google.maps.LatLng(37.6991573819, 127.133100825),
+        new google.maps.LatLng(37.6032944565, 127.12643263),
+        new google.maps.LatLng(37.6059514451, 127.121625395),
+        new google.maps.LatLng(37.6059692868, 127.115520854),
+        new google.maps.LatLng(37.6038731127, 127.113883224),
+        new google.maps.LatLng(37.6025010936, 127.111619036),
+        new google.maps.LatLng(37.6068001738, 127.105826201),
+        new google.maps.LatLng(37.6128993133, 127.09794576),
+        new google.maps.LatLng(37.6109779513, 127.092627834),
+        new google.maps.LatLng(37.6090871563, 127.091839347),
+        new google.maps.LatLng(37.6070038465, 127.092945293),
+        new google.maps.LatLng(37.6046424092, 127.09699391),
+        new google.maps.LatLng(37.6027059543, 127.09475757),
+        new google.maps.LatLng(37.6039542558, 127.08979034),
+        new google.maps.LatLng(37.6052624454, 127.085207583),
+        new google.maps.LatLng(37.6063220545, 127.081498747),
+        new google.maps.LatLng(37.6098569453, 127.079036654),
+        new google.maps.LatLng(37.6104187252, 127.072815802),
+        new google.maps.LatLng(37.6101780907, 127.078506475),
+        new google.maps.LatLng(37.6063437767, 127.080040769),
+        new google.maps.LatLng(37.604819808, 127.085479672),
+        new google.maps.LatLng(37.6038161527, 127.088909069),
+        new google.maps.LatLng(37.6023772019, 127.094570532),
+        new google.maps.LatLng(37.6043258894, 127.097277401),
+        new google.maps.LatLng(37.6070078199, 127.094749434),
+        new google.maps.LatLng(37.6088084767, 127.092146678),
+        new google.maps.LatLng(37.611317434, 127.092923493),
+        new google.maps.LatLng(37.61241161, 127.09819625),
+        new google.maps.LatLng(37.607105259, 127.105252022),
+        new google.maps.LatLng(37.6036628588, 127.108453771),
+        new google.maps.LatLng(37.6025500755, 127.112229878),
+        new google.maps.LatLng(37.6036442616, 127.113853469),
+        new google.maps.LatLng(37.6059979239, 127.115723366),
+        new google.maps.LatLng(37.6060869823, 127.120382529),
+        new google.maps.LatLng(37.6026804523, 127.126762994),
+        new google.maps.LatLng(37.6994498741, 127.131819914),
+        new google.maps.LatLng(37.6997505359, 127.136063993),
+        new google.maps.LatLng(37.6026135468, 127.138211404),
+        new google.maps.LatLng(37.6023779948, 127.140051188),
+        new google.maps.LatLng(37.6997151526, 127.14387242),
+        new google.maps.LatLng(37.6969302915, 127.147889929),
+        new google.maps.LatLng(37.6956014138, 127.149838192),
+    ];
+
+    var markers = [];
+    var iterator = 0;
+
+    var map;
+
+    function initialize() {
+        var mapOptions = {
+            zoom: 12,
+            center: seoul
+        };
+
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        var busPath = new google.maps.Polyline({
+            path: busCoordinates,
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 3
+        });
+      
+        busPath.setMap(map);
+
+        var busPath1 = new google.maps.Polyline({
+            path: busCoordinates1,
+            strokeColor: "#df0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 3
+        });
+      
+        busPath1.setMap(map);
+    }
+
+    function drop() {
+      for (var i = 0; i < neighborhoods.length; i++) {
+        setTimeout(function() {
+          addMarker();
+        }, i * 200);
+      }
+    }
+
+    function addMarker() {
+      markers.push(new google.maps.Marker({
+        position: neighborhoods[iterator],
+        map: map,
+        draggable: false,
+        animation: google.maps.Animation.DROP
+      }));
+      iterator++;
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="panel" style="margin-left: -52px">
+      <button id="drop" onclick="drop()">Drop Markers</button>
+     </div>
+    <div id="map-canvas"></div>
+  </body>
+</html>
+
