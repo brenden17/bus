@@ -17,7 +17,7 @@ def generate_busstops(df):
 def generate_polyline(valname, df, idx=0):
     coos = ',\n'.join(['new google.maps.LatLng(%s, %s)' %(r['y'] ,r['x']) for i, r in df.iterrows()])
     valcoos =  'var {0} = [{1}];'.format(valname, coos)
-    
+
     polyline_template = """
                         {0}
                         var {1}_ = new google.maps.Polyline({{
@@ -27,9 +27,9 @@ def generate_polyline(valname, df, idx=0):
                         strokeWeight: 3
                         }});
                         {1}_.setMap(map);"""
-    
+
     return polyline_template.format(valcoos, valname, colors[idx])
-    
+
 # data = {'busstops': busstops, 'busroutes':busroutes}
 def generate_template_html(data, outfilename='busmap.html'):
     infile = open('map_temp.html')
@@ -51,7 +51,7 @@ sampling_mbus = mbus_df.loc[np.random.permutation(mbus_df.index)[:200]]
 
 # 일부 정거장 구하기
 busstops = generate_busstops(sampling_mbus)
-    
+
 data = {'busstops': busstops, 'busroutes': ''}
 generate_template_html(data, 'all_busstop')
 
