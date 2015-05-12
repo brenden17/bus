@@ -6,7 +6,7 @@ visit : http://nbviewer.ipython.org/github/brenden17/bus/blob/master/bus.ipynb
 ## Get busstop
 Get data from http://m.bus.go.kr/mBus/bus/getRouteAndPos.bms
 
-## Bus routin
+## Some bus route
 https://htmlpreview.github.io/?https://github.com/brenden17/bus/blob/master/bus.html
 
 ## All busstop
